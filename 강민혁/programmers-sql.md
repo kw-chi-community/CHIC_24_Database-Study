@@ -74,3 +74,70 @@ order by user_id, product_id desc;
 user_id, product_id에서동일한 값을 가진 행들을 묶고, having count()로 조건 맞춰서 -
 
 ---
+
+[오랜 기간 보호한 동물1](https://school.programmers.co.kr/learn/courses/30/lessons/59044)
+
+animal_outs : 입양 보낸 동물의 정보 테이블
+	animal_id: animal_ins의 animal_id의 외래키
+	animal_type 
+	datetime
+	name
+	sex_upon_outcome
+
+animal_ins 테이블 
+	animal_id 
+	animal_type
+  ...
+
+실행 결과
+| name | datetime |
+|  a   |  b       |
+
+입양 못 간 동물 중, 가장 오래 보호소에 있던 동물 3마리의 이름과 보호 시작일 조회
+보호 시작일 순으로 조회
+
+outer join써서 animal_ins에는 있지만, animal_outs에 없는 친구들 가져오기
+어떠한 방식?을 써서 3개만 뽑고
+보호 시작일 순으로 정렬
+
+```sql
+
+select *
+from animal_outs
+right outer join animal_ins
+on animal_ins.animal_id = animal_outs.animal_id
+where animal_outs.animal_id = (select null from animal_outs)
+
+# where animal_outs의 animal_id가 null인
+```
+
+음.. **여기서 animal_outs.animal_id가 null인..**을 어떻게
+
+-> 그냥 `where animal_outs.animal_id is null`하면 되겠구나
+
+
+```sql
+
+select animal_ins.name, animal_ins.datetime
+from animal_outs
+right outer join animal_ins
+on animal_ins.animal_id = animal_outs.animal_id
+where animal_outs.animal_id is null
+order by animal_ins.datetime desc
+limit 3;
+```
+
+limit n 하는 방식으로 되는구나
+
+
+---
+
+
+
+
+
+
+
+
+
+
