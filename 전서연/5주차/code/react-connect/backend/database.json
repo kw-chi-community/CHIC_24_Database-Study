@@ -1,0 +1,7 @@
+{
+  "host": "localhost",
+  "user": "sample_user",
+  "password": "sample_pw",
+  "port": "3306",
+  "database": "market_db"
+}
