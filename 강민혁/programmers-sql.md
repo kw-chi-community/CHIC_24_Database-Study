@@ -78,20 +78,20 @@ user_id, product_id에서동일한 값을 가진 행들을 묶고, having count(
 [오랜 기간 보호한 동물1](https://school.programmers.co.kr/learn/courses/30/lessons/59044)
 
 animal_outs : 입양 보낸 동물의 정보 테이블
-	animal_id: animal_ins의 animal_id의 외래키
-	animal_type 
-	datetime
-	name
-	sex_upon_outcome
+animal_id: animal_ins의 animal_id의 외래키
+animal_type
+datetime
+name
+sex_upon_outcome
 
-animal_ins 테이블 
-	animal_id 
-	animal_type
-  ...
+animal_ins 테이블
+animal_id
+animal_type
+...
 
 실행 결과
 | name | datetime |
-|  a   |  b       |
+| a | b |
 
 입양 못 간 동물 중, 가장 오래 보호소에 있던 동물 3마리의 이름과 보호 시작일 조회
 보호 시작일 순으로 조회
@@ -115,7 +115,6 @@ where animal_outs.animal_id = (select null from animal_outs)
 
 -> 그냥 `where animal_outs.animal_id is null`하면 되겠구나
 
-
 ```sql
 
 select animal_ins.name, animal_ins.datetime
@@ -129,15 +128,80 @@ limit 3;
 
 limit n 하는 방식으로 되는구나
 
+---
+
+(카테고리 별 도서 판매량 집계하기)[https://school.programmers.co.kr/learn/courses/30/lessons/144855]
+
+book table
+
+    - BOOK_ID
+    - CATEGORY
+    - AUTHOR_ID
+    - PRICE
+    - PUBLISHED_DATE
+
+book_sales table
+
+    - BOOK_ID
+    - SALES_DATE
+    - SALES
+
+1. 2022년 1월의 카테고리 별 도서 판매량을 합산하고
+2. 카테고리(CATEGORY), 총 판매량(TOTAL_SALES) 리스트를 출력
+3. 카테고리명을 기준으로 오름차순
+
+-> 해당 카테고리의 책이 몇 권 팔렸는지 출력
+
+우선 book id를 기준으로 inner join하고,
+
+카테고리랑 총 판매량을그룹 후 count()해서 세면 될듯
+
+```sql
+select category, count(sales) as total_sales
+from book
+inner join book_sales on book.book_id = book_sales.book_id
+group by category;
+```
+
+왜 안되지 했는데 2022년 1월의 카테고리 별 도서 판매량만 따로 봐야했었네
+
+아 publish day가 아니라 팔린 날을 봐야하지..😥
+
+[▶ COUNT/SUM: COUNT(행의 개수 구하기), SUM(행 데이터의 합계 구하기)](https://m.blog.naver.com/sqlgate/221374572243) 보면 count가 아니라 sum을 해야하는 것을 알 수 있음
+
+```sql
+select category, sum(sales) as total_salse
+from book
+inner join book_sales on book.book_id = book_sales.book_id
+where book_sales.sales_date between '2022-01-01' and '2022-01-31'
+group by category
+order by category
+```
+
+![alt text](image.png)
+
+휴..
 
 ---
 
+[조건에 맞는 사용자와 총 거래금액 조회하기](https://school.programmers.co.kr/learn/courses/30/lessons/164668)
 
+USED_GOODS_BOARD와 USED_GOODS_USER 테이블에서 완료된 중고 거래의 총금액이 70만 원 이상인 사람의 회원 ID, 닉네임, 총거래금액을 조회하는 SQL문을 작성해주세요. 결과는 총거래금액을 기준으로 오름차순 정렬해주세요.
 
+- used_goods_board table
+- used_goods_user table
 
+1. 완료된 중고 거래의 총 금액이 70만원 이상의 id, 닉네임, 총 거래금액 조회
 
+2. 총거래금액 기준 오름차순
 
+```sql
+select user_id, nickname, sum(price) as total_sales
+from used_goods_board
+inner join used_goods_user on used_goods_board.writer_id = used_goods_user.user_id
+group by used_goods_user.user_id, used_goods_user.nickname
+having sum(price) >= 700000
+order by sum(price)
+```
 
-
-
-
+왜 안되는 거지..
