@@ -182,6 +182,12 @@ order by category
 
 휴..
 
+- 정리
+  - book table, book_sales table이 있을 때 → `from book inner join book_sales on book.book_id = book_sales.book_id`
+  - 2022년 1월의 카테고리 별 도서 판매량 합산 → `where 판매일 between '2022-01-01' and '2022-01-01'`
+  - 카테고리, 해당 카테고리의 총 판매량 리스트를 출력 → `select category, sum(sales) group by category`
+  - 카테고리명을 기준으로 오름차순 → `order by category`
+
 ---
 
 [조건에 맞는 사용자와 총 거래금액 조회하기](https://school.programmers.co.kr/learn/courses/30/lessons/164668)
