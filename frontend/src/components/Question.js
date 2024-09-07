@@ -2,10 +2,18 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 
-function Question({ step, question, options, nextPath, nextPaths }) {
+function Question({
+  step,
+  question,
+  options,
+  nextPath,
+  nextPaths,
+  handleAnswer,
+}) {
   const navigate = useNavigate();
 
-  const handleClick = (path) => {
+  const handleClick = (option, path) => {
+    handleAnswer(option);
     navigate(path);
   };
 
@@ -16,7 +24,9 @@ function Question({ step, question, options, nextPath, nextPaths }) {
       {options.map((option, index) => (
         <button
           key={index}
-          onClick={() => handleClick(nextPaths ? nextPaths[index] : nextPath)}
+          onClick={() =>
+            handleClick(option, nextPaths ? nextPaths[index] : nextPath)
+          }
         >
           {option}
         </button>
