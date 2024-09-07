@@ -1,0 +1,18 @@
+CREATE TABLE dept(
+deptno CHAR(2) PRIMARY KEY,
+deptname VARCHAR(20),
+deptloc VARCHAR(20) 
+);
+CREATE TABLE title(
+titleno CHAR(2) PRIMARY KEY,
+titlename VARCHAR(20) 
+);
+CREATE TABLE emp(
+empno CHAR(4) PRIMARY KEY,
+titleno CHAR(2), 
+deptno CHAR(2),
+empname VARCHAR(10),
+manager CHAR(4),
+salary INT(5),
+hdate DATE
+);
