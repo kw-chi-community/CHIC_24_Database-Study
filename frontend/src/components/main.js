@@ -2,10 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 
-function Main() {
+function Main({ resetStep }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
+    resetStep();
     navigate("/ismeal");
   };
 

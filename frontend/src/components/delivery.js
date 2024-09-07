@@ -5,9 +5,9 @@ function Delivery({ step }) {
   return (
     <Question
       step={step}
-      question="배달 가능 여부가 중요한가요?"
+      question="나는 주로 배달 시켜 먹는다."
       options={["예", "아니요"]}
-      nextPath="/manypeople"
+      nextPaths={["/result", "/distance"]}
     />
   );
 }

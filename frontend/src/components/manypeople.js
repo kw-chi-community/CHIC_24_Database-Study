@@ -5,9 +5,9 @@ function ManyPeople({ step }) {
   return (
     <Question
       step={step}
-      question="여럿이서 밥을 먹는 것을 좋아하시나요?"
+      question="회식처럼 여럿이서 밥을 먹는 것을 좋아한다."
       options={["예", "아니요"]}
-      nextPath="/cagong"
+      nextPath="/result"
     />
   );
 }

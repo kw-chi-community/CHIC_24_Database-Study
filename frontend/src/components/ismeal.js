@@ -5,9 +5,9 @@ function IsMeal({ step }) {
   return (
     <Question
       step={step}
-      question="나는 간식보다 식사를 더 신경써서 먹는 편이다."
+      question="나는 식당보다 카페에 더 자주 간다."
       options={["예", "아니요"]}
-      nextPath="/distance"
+      nextPaths={["/cagong", "/menutype"]}
     />
   );
 }
