@@ -13,7 +13,9 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    if (
+    if (location.pathname === "/") {
+      setStep(0); // "다시하기" 눌렀을 때 이전 step 계속 가져오는 문제 해결
+    } else if (
       location.pathname === "/ismeal" ||
       location.pathname === "/distance" ||
       location.pathname === "/delivery" ||
