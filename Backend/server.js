@@ -1,9 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const app = express();
-
-dotenv.config(); // 환경 변수 로드
 
 app.use(cors());
 app.use(express.json());
@@ -12,12 +9,16 @@ const PORT = process.env.PORT || 4000;
 
 const mariadb = require("mariadb");
 
+const fs = require("fs");
+const data = fs.readFileSync("./database.json");
+const conf = JSON.parse(data);
+
 const conn = mariadb.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-  database: process.env.DB_DATABASE,
+  host: conf.host,
+  user: conf.user,
+  password: conf.password,
+  port: conf.port,
+  database: conf.database,
   multipleStatements: true,
 });
 
