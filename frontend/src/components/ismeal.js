@@ -5,11 +5,11 @@ function IsMeal({ step, handleAnswer }) {
   return (
     <Question
       step={step}
-      question="나는 식당보다 카페에 더 자주 간다."
-      options={["예", "아니요"]}
+      question="밥 먹을 곳을 찾는 건가요?"
+      options={["카페", "식당"]}
       nextPaths={["/cagong", "/menutype"]}
       handleAnswer={(answer) =>
-        handleAnswer("ismeal", answer === "예" ? false : true)
+        handleAnswer("ismeal", answer === "카페" ? false : true)
       }
     />
   );

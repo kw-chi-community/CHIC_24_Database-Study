@@ -6,7 +6,7 @@ function Delivery({ step, handleAnswer }) {
   return (
     <Question
       step={step}
-      question="나는 주로 배달 시켜 먹는다."
+      question="배달이 필요한가요?"
       options={["예", "아니요"]}
       nextPaths={["/result", "/distance"]}
       handleAnswer={(answer) =>

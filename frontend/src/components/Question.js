@@ -18,19 +18,21 @@ function Question({
   };
 
   return (
-    <div className="main-component">
-      <h1>{step}번째 질문!</h1>
+    <div>
+      <h2>{step}번째 질문!</h2>
       <p>{question}</p>
-      {options.map((option, index) => (
-        <button
-          key={index}
-          onClick={() =>
-            handleClick(option, nextPaths ? nextPaths[index] : nextPath)
-          }
-        >
-          {option}
-        </button>
-      ))}
+      <div className="buttons-box">
+        {options.map((option, index) => (
+          <button
+            key={index}
+            onClick={() =>
+              handleClick(option, nextPaths ? nextPaths[index] : nextPath)
+            }
+          >
+            {option}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

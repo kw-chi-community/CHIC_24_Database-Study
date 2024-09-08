@@ -10,6 +10,7 @@ import Result from "./components/result";
 import Price from "./components/price";
 import MenuType from "./components/menutype";
 import Admin from "./components/admin"; // Admin 컴포넌트 추가
+import "./App.css";
 
 function App() {
   const [step, setStep] = useState(1);
@@ -61,42 +62,44 @@ function App() {
   };
 
   return (
-    <Routes>
-      <Route path="/" element={<Main resetStep={resetStep} />} />
-      <Route
-        path="/ismeal"
-        element={<IsMeal step={step} handleAnswer={handleAnswer} />}
-      />
-      <Route
-        path="/menutype"
-        element={<MenuType step={step} handleAnswer={handleAnswer} />}
-      />
-      <Route
-        path="/price"
-        element={<Price step={step} handleAnswer={handleAnswer} />}
-      />
-      <Route
-        path="/distance"
-        element={<Distance step={step} handleAnswer={handleAnswer} />}
-      />
-      <Route
-        path="/delivery"
-        element={<Delivery step={step} handleAnswer={handleAnswer} />}
-      />
-      <Route
-        path="/manypeople"
-        element={<ManyPeople step={step} handleAnswer={handleAnswer} />}
-      />
-      <Route
-        path="/cagong"
-        element={<Cagong step={step} handleAnswer={handleAnswer} />}
-      />
-      <Route
-        path="/result"
-        element={<Result answers={answers} resetStep={resetStep} />}
-      />
-      <Route path="/admin" element={<Admin />} /> {/* Admin 경로 추가 */}
-    </Routes>
+    <div className="main-component">
+      <Routes>
+        <Route path="/" element={<Main resetStep={resetStep} />} />
+        <Route
+          path="/ismeal"
+          element={<IsMeal step={step} handleAnswer={handleAnswer} />}
+        />
+        <Route
+          path="/menutype"
+          element={<MenuType step={step} handleAnswer={handleAnswer} />}
+        />
+        <Route
+          path="/price"
+          element={<Price step={step} handleAnswer={handleAnswer} />}
+        />
+        <Route
+          path="/distance"
+          element={<Distance step={step} handleAnswer={handleAnswer} />}
+        />
+        <Route
+          path="/delivery"
+          element={<Delivery step={step} handleAnswer={handleAnswer} />}
+        />
+        <Route
+          path="/manypeople"
+          element={<ManyPeople step={step} handleAnswer={handleAnswer} />}
+        />
+        <Route
+          path="/cagong"
+          element={<Cagong step={step} handleAnswer={handleAnswer} />}
+        />
+        <Route
+          path="/result"
+          element={<Result answers={answers} resetStep={resetStep} />}
+        />
+        <Route path="/admin" element={<Admin />} /> {/* Admin 경로 추가 */}
+      </Routes>
+    </div>
   );
 }
 
