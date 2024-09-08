@@ -7,7 +7,7 @@ function MenuType({ step, handleAnswer }) {
     <Question
       step={step}
       question="어떤 종류의 음식을 선호하시나요?"
-      options={["쌀", "면", "고기"]}
+      options={["밥", "면", "고기", "기타"]}
       nextPath="/price"
       handleAnswer={(answer) => handleAnswer("menu_type", answer)}
     />

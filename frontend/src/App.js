@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     if (location.pathname === "/") {
-      setStep(1); // "다시하기" 눌렀을 때 step을 1로 초기화
+      setStep(0); // "다시하기" 눌렀을 때 step을 0로 초기화
     } else if (
       location.pathname === "/ismeal" || // 밥, 카페
       location.pathname === "/menutype" || // 쌀, 면, 고기
@@ -48,7 +48,7 @@ function App() {
   };
 
   const resetStep = () => {
-    setStep(1);
+    setStep(0);
     setAnswers({
       ismeal: null,
       can_ca_gong: null,
