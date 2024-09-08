@@ -1,0 +1,27 @@
+.restaurent-box {
+  margin: 5px 0;
+  box-shadow: 0 3px 5px rgb(200, 200, 200);
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+.restaurent-box h3,
+p {
+  margin: 0;
+}
+
+.signature-menu {
+  display: flex;
+}
+.signature-menu .menu-price {
+  margin-right: 5px;
+  color: #777;
+}
+
+.signature-menu .menu-name {
+  margin-right: 5px;
+}
+
+.restaurent-box .menu {
+  margin: 15px 0;
+}

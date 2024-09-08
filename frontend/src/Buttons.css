@@ -1,0 +1,40 @@
+.buttons-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 30px;
+}
+
+.buttons-box button {
+  padding: 10px 15px;
+  background-color: #8a1601;
+  border: none;
+  outline: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px #1c0400;
+  margin: 0 3px;
+}
+
+.start-button {
+  padding: 10px;
+  float: right;
+  background-color: #8a1601;
+  border: none;
+  outline: none;
+  color: white;
+  border-radius: 5px;
+}
+
+.goto-first {
+  float: right;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #8a1601;
+  border: none;
+  outline: none;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px #1c0400;
+}
