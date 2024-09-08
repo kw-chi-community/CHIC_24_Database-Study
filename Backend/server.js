@@ -10,15 +10,17 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 4000;
 
-const mariadb = require("mariadb");
+const mysql = require("mysql2/promise");
 
-const conn = mariadb.createPool({
+const conn = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
   database: process.env.DB_DATABASE,
-  multipleStatements: true,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
 });
 
 app.get("/", (req, res) => {
@@ -42,7 +44,7 @@ app.post("/admin/save", async (req, res) => {
   try {
     await conn.query(
       `
-      INSERT INTO chic-dbstudy.restaurant (restaurant_name, is_meal, signature_menu, signature_menu_price, distance, can_delivery, can_many_people, can_ca_gong)
+      INSERT INTO restaurant (restaurant_name, is_meal, signature_menu, signature_menu_price, distance, can_delivery, can_many_people, can_ca_gong)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `,
       [
@@ -65,7 +67,7 @@ app.post("/admin/save", async (req, res) => {
 
 app.get("/admin/data", async (req, res) => {
   try {
-    const result = await conn.query("SELECT * FROM chic-dbstudy.restaurant");
+    const [result] = await conn.query("SELECT * FROM restaurant");
     res.status(200).json(result);
   } catch (err) {
     console.error(err);
