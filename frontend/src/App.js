@@ -26,6 +26,8 @@ function App() {
     }
   }, [location]);
 
+  // 다음 스텝으로 쿼리문을 넘겨주는 것이 필요해보여요.
+
   return (
     <Routes>
       <Route path="/" element={<Main />} />
