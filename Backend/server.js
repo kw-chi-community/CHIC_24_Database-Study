@@ -77,7 +77,7 @@ app.post("/restaurants", async (req, res) => {
     const restaurantWithMenus = await Promise.all(
       restaurants.map(async (restaurant) => {
         const menuQuery = `
-          SELECT m.menu_name, m.menu_price, mt.menu_type
+          SELECT m.menu_name, m.menu_price, mt.menu_type, mt.menu_description, mt.detail_menu_type
           FROM menu m
           JOIN menu_type mt ON m.menu_id = mt.menu_id
           WHERE m.id = ?
@@ -86,6 +86,8 @@ app.post("/restaurants", async (req, res) => {
         return { ...restaurant, menus };
       })
     );
+
+    console.log(restaurantWithMenus);
 
     return res.json(restaurantWithMenus);
   } catch (error) {
