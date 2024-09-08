@@ -93,7 +93,7 @@ function App() {
       />
       <Route
         path="/result"
-        elsement={<Result answers={answers} resetStep={resetStep} />}
+        element={<Result answers={answers} resetStep={resetStep} />}
       />
       <Route path="/admin" element={<Admin />} /> {/* Admin 경로 추가 */}
     </Routes>
