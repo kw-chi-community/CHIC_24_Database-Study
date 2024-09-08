@@ -43,16 +43,19 @@ app.post("/restaurants", async (req, res) => {
   } = req.body;
 
   try {
-    // 가게 정보 조회
     const query = `
       SELECT r.id, r.restaurant_name, r.signature_menu, r.signature_menu_price, r.distance, r.can_delivery, r.can_many_people
       FROM restaurant r
+      JOIN menu m ON r.id = m.id
+      JOIN menu_type mt ON m.menu_id = mt.menu_id
+      JOIN food_type ft ON r.id = ft.id
       WHERE r.is_meal = ? 
       AND (r.can_ca_gong = ? OR ? IS NULL)
       AND (r.signature_menu_price <= ? OR ? IS NULL)
       AND (r.can_delivery = ? OR (? IS FALSE AND r.can_delivery IN (false, true))) 
       AND (r.can_many_people = ? OR (? IS FALSE AND r.can_many_people IN (false, true)))
       AND (r.distance <= ? OR ? IS NULL)
+      AND (ft.food_type = ? OR ? IS NULL)
     `;
 
     const [restaurants] = await conn.query(query, [
@@ -67,17 +70,18 @@ app.post("/restaurants", async (req, res) => {
       can_many_people,
       distance,
       distance,
+      menu_type,
+      menu_type,
     ]);
 
-    // 각 가게의 메뉴 조회
     const restaurantWithMenus = await Promise.all(
       restaurants.map(async (restaurant) => {
         const menuQuery = `
-        SELECT m.menu_name, m.menu_price, mt.menu_type
-        FROM menu m
-        JOIN menu_type mt ON m.menu_id = mt.menu_id
-        WHERE m.id = ?
-      `;
+          SELECT m.menu_name, m.menu_price, mt.menu_type
+          FROM menu m
+          JOIN menu_type mt ON m.menu_id = mt.menu_id
+          WHERE m.id = ?
+        `;
         const [menus] = await conn.query(menuQuery, [restaurant.id]);
         return { ...restaurant, menus };
       })
