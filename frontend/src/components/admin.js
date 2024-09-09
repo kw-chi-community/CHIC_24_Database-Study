@@ -37,7 +37,12 @@ function Admin() {
   };
 
   const handleFoodTypeChange = (e) => {
-    setFoodType(e.target.value);
+    const value = e.target.value;
+    setFoodType(value);
+    setFormData((prevData) => ({
+      ...prevData,
+      food_types: [...prevData.food_types, value],
+    }));
   };
 
   const handleMenuItemChange = (e) => {
