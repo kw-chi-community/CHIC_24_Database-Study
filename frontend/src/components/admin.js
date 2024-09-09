@@ -83,7 +83,7 @@ function Admin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4000/admin/save", formData);
+      await axios.post("http://localhost:9123/admin/save", formData);
       fetchData();
       console.log("fomr data: ", formData);
       console.log("menu item", menuItem);
@@ -96,7 +96,7 @@ function Admin() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/admin/data");
+      const response = await axios.get("http://localhost:9123/admin/data");
       setData(response.data);
     } catch (err) {
       console.error(err);

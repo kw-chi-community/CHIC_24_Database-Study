@@ -8,7 +8,7 @@ dotenv.config(); // 환경 변수 로드
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 9123;
 
 const mysql = require("mysql2/promise");
 

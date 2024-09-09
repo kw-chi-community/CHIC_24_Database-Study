@@ -17,7 +17,7 @@ function Result({ answers, resetStep }) {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const response = await fetch("http://localhost:4000/restaurants", {
+        const response = await fetch("http://localhost:9123/restaurants", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
