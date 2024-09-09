@@ -44,7 +44,14 @@ app.post("/restaurants", async (req, res) => {
 
   try {
     const query = `
-      SELECT r.id, r.restaurant_name, r.signature_menu, r.signature_menu_price, r.distance, r.can_delivery, r.can_many_people
+      SELECT r.id, r.restaurant_name, r.signature_menu, r.signature_menu_price, r.distance, r.can_delivery, r.can_many_people,
+             GROUP_CONCAT(CONCAT('{', 
+               '"menu_name": "', REPLACE(m.menu_name, '"', '\"'), '",',
+               '"menu_price": ', m.menu_price, ',',
+               '"menu_type": "', mt.menu_type, '",',
+               '"menu_description": "', REPLACE(mt.menu_description, '"', '\"'), '",',
+               '"detail_menu_type": "', mt.detail_menu_type, '"',
+             '}')) AS menus
       FROM restaurant r
       JOIN menu m ON r.id = m.id
       JOIN menu_type mt ON m.menu_id = mt.menu_id
@@ -56,6 +63,7 @@ app.post("/restaurants", async (req, res) => {
       AND (r.can_many_people = ? OR (? IS FALSE AND r.can_many_people IN (false, true)))
       AND (r.distance <= ? OR ? IS NULL)
       AND (ft.food_type = ? OR ? IS NULL)
+      GROUP BY r.id
     `;
 
     const [restaurants] = await conn.query(query, [
@@ -74,18 +82,10 @@ app.post("/restaurants", async (req, res) => {
       menu_type,
     ]);
 
-    const restaurantWithMenus = await Promise.all(
-      restaurants.map(async (restaurant) => {
-        const menuQuery = `
-          SELECT m.menu_name, m.menu_price, mt.menu_type, mt.menu_description, mt.detail_menu_type
-          FROM menu m
-          JOIN menu_type mt ON m.menu_id = mt.menu_id
-          WHERE m.id = ?
-        `;
-        const [menus] = await conn.query(menuQuery, [restaurant.id]);
-        return { ...restaurant, menus };
-      })
-    );
+    const restaurantWithMenus = restaurants.map((restaurant) => ({
+      ...restaurant,
+      menus: restaurant.menus ? JSON.parse(`[${restaurant.menus}]`) : [],
+    }));
 
     console.log(restaurantWithMenus);
 
