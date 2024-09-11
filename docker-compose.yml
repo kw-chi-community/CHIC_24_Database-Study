@@ -1,0 +1,15 @@
+services:
+  backend:
+    build:
+      context: ./Backend
+    ports:
+      - "9123:9123"
+    environment:
+      - NODE_ENV=production
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3123:3123"
+
